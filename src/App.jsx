@@ -416,30 +416,70 @@ export default function App() {
           <div style={{ width: 1, height: 80, background: 'linear-gradient(to bottom, rgba(255,255,255,0.15), transparent)' }} />
         </div>
 
-        <div className="hero-content" style={{ position: 'relative', zIndex: 2, maxWidth: 900, display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(10,10,10,0.55) 0%, transparent 100%)', padding: '60px 40px', borderRadius: 32 }}>
+        <div className="hero-content" style={{
+          position: 'relative', zIndex: 2, maxWidth: 900,
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          background: 'rgba(10,10,10,0.45)',
+          backdropFilter: 'blur(18px)',
+          WebkitBackdropFilter: 'blur(18px)',
+          border: '1px solid rgba(255,255,255,0.07)',
+          padding: '64px 56px', borderRadius: 32,
+          boxShadow: '0 8px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
+        }}>
           <RevealText delay={0.1}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: '#7C3AED', letterSpacing: 4, textTransform: 'uppercase' }}>
+            <span style={{
+              fontSize: 12, fontWeight: 700, letterSpacing: 5, textTransform: 'uppercase',
+              background: 'linear-gradient(90deg, #9333ea, #22d3ee)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+              padding: '6px 20px', borderRadius: 999,
+              border: '1px solid rgba(147,51,234,0.35)',
+              display: 'inline-block',
+            }}>
               Vibe Coder · IT Service Desk
             </span>
           </RevealText>
-          <div style={{ marginTop: 24 }}>
+          <div style={{ marginTop: 28 }}>
             <RevealText delay={0.25}>
-              <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(48px, 9vw, 110px)', fontWeight: 700, lineHeight: 1.05, display: 'block' }}>
+              <span style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(52px, 9vw, 112px)', fontWeight: 700, lineHeight: 1.05, display: 'block',
+                background: 'linear-gradient(135deg, #fff 30%, #c084fc 70%, #22d3ee 100%)',
+                WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+              }}>
                 Cao Bao
               </span>
             </RevealText>
             <RevealText delay={0.4}>
-              <span style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(48px, 9vw, 110px)', fontWeight: 400, fontStyle: 'italic', lineHeight: 1.05, display: 'block', color: 'transparent', WebkitTextStroke: '1.5px rgba(255,255,255,0.5)' }}>
+              <span style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(52px, 9vw, 112px)', fontWeight: 400, fontStyle: 'italic',
+                lineHeight: 1.05, display: 'block',
+                color: 'transparent', WebkitTextStroke: '1.5px rgba(192,132,252,0.6)',
+              }}>
                 Vibe Codes
               </span>
             </RevealText>
           </div>
           <RevealText delay={0.6}>
-            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', maxWidth: 420, lineHeight: 1.7, marginTop: 32 }}>
+            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', maxWidth: 440, lineHeight: 1.8, marginTop: 32, letterSpacing: 0.3 }}>
               IT Service Desk by day, Vibe Coder by night —<br />building tools and apps with AI from Ho Chi Minh City.
             </p>
           </RevealText>
-          <RevealText delay={0.8}>
+          <RevealText delay={0.75}>
+            <div style={{ display: 'flex', gap: 48, marginTop: 36 }}>
+              {[['3+', 'Years Exp'], ['10+', 'Projects'], ['95%', 'SLA Rate']].map(([num, label]) => (
+                <div key={label} style={{ textAlign: 'center' }}>
+                  <div style={{
+                    fontFamily: "'Playfair Display', serif", fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 700,
+                    background: 'linear-gradient(135deg, #c084fc, #22d3ee)',
+                    WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                  }}>{num}</div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', letterSpacing: 2, textTransform: 'uppercase', marginTop: 4 }}>{label}</div>
+                </div>
+              ))}
+            </div>
+          </RevealText>
+          <RevealText delay={0.9}>
             <div style={{ marginTop: 40 }}>
               <MagneticButton onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}>
                 View Projects
@@ -493,9 +533,9 @@ export default function App() {
                   <RevealText key={skill} delay={0.1 + i * 0.05}>
                     <span
                       data-hover="true"
-                      style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.08)', padding: '10px 20px', borderRadius: 999, display: 'inline-block', transition: 'all 0.3s ease' }}
-                      onMouseEnter={(e) => { e.target.style.borderColor = '#7C3AED'; e.target.style.color = '#fff' }}
-                      onMouseLeave={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.color = 'rgba(255,255,255,0.6)' }}
+                      style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.08)', padding: '10px 20px', borderRadius: 999, display: 'inline-block', transition: 'all 0.3s ease', background: 'rgba(255,255,255,0.02)' }}
+                      onMouseEnter={(e) => { e.target.style.borderColor = '#9333ea'; e.target.style.color = '#fff'; e.target.style.background = 'rgba(147,51,234,0.12)'; e.target.style.boxShadow = '0 0 18px rgba(147,51,234,0.25)' }}
+                      onMouseLeave={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.08)'; e.target.style.color = 'rgba(255,255,255,0.6)'; e.target.style.background = 'rgba(255,255,255,0.02)'; e.target.style.boxShadow = 'none' }}
                     >
                       {skill}
                     </span>
@@ -623,41 +663,61 @@ export default function App() {
         id="contact"
         style={{ padding: '120px clamp(24px, 6vw, 100px)', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}
       >
-        <div style={{ position: 'absolute', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.08) 0%, transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', pointerEvents: 'none' }} />
+        <div style={{ position: 'absolute', width: 700, height: 700, borderRadius: '50%', background: 'radial-gradient(circle, rgba(147,51,234,0.1) 0%, rgba(34,211,238,0.04) 50%, transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', pointerEvents: 'none', animation: 'pulse-glow 6s ease-in-out infinite' }} />
 
         <RevealText>
-          <span style={{ fontSize: 11, fontWeight: 600, color: '#7C3AED', letterSpacing: 4, textTransform: 'uppercase' }}>Get in Touch</span>
+          <span style={{
+            fontSize: 11, fontWeight: 700, letterSpacing: 5, textTransform: 'uppercase',
+            background: 'linear-gradient(90deg, #9333ea, #22d3ee)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+          }}>Get in Touch</span>
         </RevealText>
         <RevealText delay={0.2}>
           <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(36px, 7vw, 80px)', fontWeight: 700, lineHeight: 1.1, marginTop: 24 }}>
             Let's create<br />
-            <span style={{ fontStyle: 'italic', color: '#7C3AED' }}>together</span>
+            <span style={{
+              fontStyle: 'italic',
+              background: 'linear-gradient(135deg, #9333ea, #22d3ee)',
+              WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            }}>together</span>
           </h2>
         </RevealText>
         <RevealText delay={0.4}>
-          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', maxWidth: 480, lineHeight: 1.7, marginTop: 24 }}>
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', maxWidth: 480, lineHeight: 1.8, marginTop: 24 }}>
             Have an idea, a project, or just want to say hi? I'd love to hear from you.
           </p>
         </RevealText>
         <RevealText delay={0.55}>
-          <div style={{ marginTop: 48 }}>
-            <MagneticButton onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=caothienbao1805@gmail.com')} style={{ fontSize: 16, padding: '18px 48px', borderColor: '#7C3AED' }}>
+          <div style={{ marginTop: 48, position: 'relative', display: 'inline-block' }}>
+            <div style={{
+              position: 'absolute', inset: -3, borderRadius: 999,
+              background: 'linear-gradient(135deg, #9333ea, #22d3ee)',
+              filter: 'blur(12px)', opacity: 0.6,
+              animation: 'pulse-glow 3s ease-in-out infinite',
+            }} />
+            <MagneticButton onClick={() => window.open('https://mail.google.com/mail/?view=cm&to=caothienbao1805@gmail.com')} style={{ fontSize: 16, padding: '18px 48px', borderColor: '#9333ea', position: 'relative' }}>
               Say Hello →
             </MagneticButton>
           </div>
         </RevealText>
         <RevealText delay={0.7}>
-          <div style={{ display: 'flex', gap: 32, marginTop: 60 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 16, marginTop: 64 }}>
             {[
-              { label: 'GitHub', href: '#' },
+              { label: 'GitHub', href: 'https://github.com/Baocaothien' },
               { label: 'LinkedIn', href: 'https://www.linkedin.com/in/bảo-cao-34984a372/' },
               { label: 'Gmail', href: 'https://mail.google.com/mail/?view=cm&to=caothienbao1805@gmail.com' },
               { label: '+84 368 841 160', href: 'tel:+84368841160' },
             ].map(({ label, href }) => (
               <a key={label} href={href} data-hover="true"
-                style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.3)', letterSpacing: 2, textTransform: 'uppercase', transition: 'color 0.3s' }}
-                onMouseEnter={(e) => (e.target.style.color = '#fff')}
-                onMouseLeave={(e) => (e.target.style.color = 'rgba(255,255,255,0.3)')}
+                style={{
+                  fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.35)',
+                  letterSpacing: 2, textTransform: 'uppercase', transition: 'all 0.3s ease',
+                  padding: '10px 20px', borderRadius: 999,
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  background: 'rgba(255,255,255,0.02)',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = '#fff'; e.currentTarget.style.borderColor = 'rgba(147,51,234,0.5)'; e.currentTarget.style.background = 'rgba(147,51,234,0.1)'; e.currentTarget.style.boxShadow = '0 0 20px rgba(147,51,234,0.2)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = 'rgba(255,255,255,0.35)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; e.currentTarget.style.boxShadow = 'none' }}
               >
                 {label}
               </a>
@@ -667,9 +727,13 @@ export default function App() {
       </section>
 
       {/* Footer */}
-      <footer style={{ padding: '40px clamp(24px, 6vw, 100px)', borderTop: '1px solid rgba(255,255,255,0.04)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.15)' }}>© 2026 Cao Bao</span>
-        <span style={{ fontFamily: 'monospace', fontSize: 11, color: 'rgba(255,255,255,0.1)' }}>Built with passion from HCMC</span>
+      <footer style={{ padding: '40px clamp(24px, 6vw, 100px)', borderTop: '1px solid rgba(255,255,255,0.04)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12, background: 'linear-gradient(to top, rgba(147,51,234,0.03), transparent)' }}>
+        <span style={{
+          fontSize: 12,
+          background: 'linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.15))',
+          WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+        }}>© 2026 Cao Bao</span>
+        <span style={{ fontFamily: 'monospace', fontSize: 11, color: 'rgba(255,255,255,0.12)', letterSpacing: 1 }}>Built with passion from HCMC 🇻🇳</span>
       </footer>
     </>
   )
