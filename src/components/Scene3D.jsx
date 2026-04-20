@@ -77,13 +77,13 @@ function HoloFigure({ mouse }) {
     if (rightArm.current) rightArm.current.rotation.x = -Math.sin(t * 1.4) * 0.18
   })
 
-  const P = '#7C3AED'
-  const V = '#a78bfa'
-  const C = '#06b6d4'
+  const P = '#9333ea'
+  const V = '#c084fc'
+  const C = '#22d3ee'
 
-  const mat = (color, opacity = 0.85, ei = 1.4) => (
+  const mat = (color, opacity = 0.9, ei = 2.2) => (
     <meshStandardMaterial color={color} emissive={color} emissiveIntensity={ei}
-      transparent opacity={opacity} roughness={0.05} metalness={0.9} />
+      transparent opacity={opacity} roughness={0.03} metalness={0.95} />
   )
 
   return (
@@ -300,15 +300,15 @@ export default function Scene3D({ mouse }) {
   return (
     <Canvas
       camera={{ position: [0, 0.1, 6.5], fov: 52 }}
-      style={{ position: 'absolute', top: 0, right: 0, width: '55%', height: '100%', pointerEvents: 'none' }}
+      style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}
       dpr={[1, 1.5]}
-      gl={{ antialias: true, toneMapping: 3, toneMappingExposure: 1.2 }}
+      gl={{ antialias: true, toneMapping: 3, toneMappingExposure: 1.6 }}
     >
-      <ambientLight intensity={0.1} />
-      <pointLight position={[0, 3, 4]}   intensity={3}   color="#7C3AED" />
-      <pointLight position={[4, 0, 2]}   intensity={2}   color="#06b6d4" />
-      <pointLight position={[-4, -2, 0]} intensity={1.2} color="#a78bfa" />
-      <pointLight position={[0, -4, 2]}  intensity={0.8} color="#06b6d4" />
+      <ambientLight intensity={0.2} />
+      <pointLight position={[0, 3, 4]}   intensity={5}   color="#9333ea" />
+      <pointLight position={[4, 0, 2]}   intensity={4}   color="#22d3ee" />
+      <pointLight position={[-4, -2, 0]} intensity={2.5} color="#c084fc" />
+      <pointLight position={[0, -4, 2]}  intensity={1.8} color="#22d3ee" />
 
       <Stars radius={90} depth={50} count={1000} factor={3} fade speed={0.4} />
       <Particles />

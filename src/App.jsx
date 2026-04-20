@@ -402,7 +402,7 @@ export default function App() {
           mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2
           mouse.current.y = -(e.clientY / window.innerHeight - 0.5) * 2
         }}
-        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 clamp(24px, 6vw, 100px)', position: 'relative' }}
+        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '0 clamp(24px, 6vw, 100px)', position: 'relative', textAlign: 'center' }}
       >
         <div className="scene-3d-wrap">
           <Scene3D mouse={mouse} />
@@ -416,7 +416,7 @@ export default function App() {
           <div style={{ width: 1, height: 80, background: 'linear-gradient(to bottom, rgba(255,255,255,0.15), transparent)' }} />
         </div>
 
-        <div className="hero-content" style={{ position: 'relative', zIndex: 2, maxWidth: 1000 }}>
+        <div className="hero-content" style={{ position: 'relative', zIndex: 2, maxWidth: 900, display: 'flex', flexDirection: 'column', alignItems: 'center', background: 'radial-gradient(ellipse 80% 70% at 50% 50%, rgba(10,10,10,0.55) 0%, transparent 100%)', padding: '60px 40px', borderRadius: 32 }}>
           <RevealText delay={0.1}>
             <span style={{ fontSize: 13, fontWeight: 600, color: '#7C3AED', letterSpacing: 4, textTransform: 'uppercase' }}>
               Vibe Coder · IT Service Desk
@@ -436,7 +436,7 @@ export default function App() {
           </div>
           <RevealText delay={0.6}>
             <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.4)', maxWidth: 420, lineHeight: 1.7, marginTop: 32 }}>
-              IT Service Desk by day, Vibe Coder by night — building tools and apps with AI from Ho Chi Minh City.
+              IT Service Desk by day, Vibe Coder by night —<br />building tools and apps with AI from Ho Chi Minh City.
             </p>
           </RevealText>
           <RevealText delay={0.8}>
