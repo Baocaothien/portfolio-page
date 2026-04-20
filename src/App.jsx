@@ -652,6 +652,7 @@ export default function App() {
               { label: 'GitHub', href: '#' },
               { label: 'LinkedIn', href: 'https://www.linkedin.com/in/bảo-cao-34984a372/' },
               { label: 'Gmail', href: 'https://mail.google.com/mail/?view=cm&to=caothienbao1805@gmail.com' },
+              { label: '+84 368 841 160', href: 'tel:+84368841160' },
             ].map(({ label, href }) => (
               <a key={label} href={href} data-hover="true"
                 style={{ fontSize: 12, fontWeight: 500, color: 'rgba(255,255,255,0.3)', letterSpacing: 2, textTransform: 'uppercase', transition: 'color 0.3s' }}
