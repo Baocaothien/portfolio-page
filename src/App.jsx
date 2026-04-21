@@ -402,9 +402,9 @@ export default function App() {
           mouse.current.x = (e.clientX / window.innerWidth - 0.5) * 2
           mouse.current.y = -(e.clientY / window.innerHeight - 0.5) * 2
         }}
-        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '0 clamp(24px, 6vw, 100px)', position: 'relative', textAlign: 'center' }}
+        style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 clamp(24px, 6vw, 100px)', position: 'relative' }}
       >
-        <div className="scene-3d-wrap">
+        <div className="scene-3d-wrap" style={{ position: 'absolute', inset: 0, zIndex: 1 }}>
           <Scene3D mouse={mouse} />
         </div>
 
@@ -417,14 +417,8 @@ export default function App() {
         </div>
 
         <div className="hero-content" style={{
-          position: 'relative', zIndex: 2, maxWidth: 900,
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          background: 'rgba(10,10,10,0.45)',
-          backdropFilter: 'blur(18px)',
-          WebkitBackdropFilter: 'blur(18px)',
-          border: '1px solid rgba(255,255,255,0.07)',
-          padding: '64px 56px', borderRadius: 32,
-          boxShadow: '0 8px 80px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
+          position: 'relative', zIndex: 3, maxWidth: 580,
+          display: 'flex', flexDirection: 'column', alignItems: 'flex-start',
         }}>
           <RevealText delay={0.1}>
             <span style={{
@@ -445,6 +439,7 @@ export default function App() {
                 fontSize: 'clamp(52px, 9vw, 112px)', fontWeight: 700, lineHeight: 1.05, display: 'block',
                 background: 'linear-gradient(135deg, #fff 30%, #c084fc 70%, #22d3ee 100%)',
                 WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+                filter: 'drop-shadow(0 0 30px rgba(147,51,234,0.4))',
               }}>
                 Cao Bao
               </span>
@@ -461,14 +456,14 @@ export default function App() {
             </RevealText>
           </div>
           <RevealText delay={0.6}>
-            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', maxWidth: 440, lineHeight: 1.8, marginTop: 32, letterSpacing: 0.3 }}>
+            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.7)', maxWidth: 440, lineHeight: 1.8, marginTop: 32, letterSpacing: 0.3, textShadow: '0 2px 20px rgba(0,0,0,0.8)' }}>
               IT Service Desk by day, Vibe Coder by night —<br />building tools and apps with AI from Ho Chi Minh City.
             </p>
           </RevealText>
           <RevealText delay={0.75}>
-            <div style={{ display: 'flex', gap: 48, marginTop: 36 }}>
+            <div style={{ display: 'flex', gap: 40, marginTop: 36 }}>
               {[['3+', 'Years Exp'], ['10+', 'Projects'], ['95%', 'SLA Rate']].map(([num, label]) => (
-                <div key={label} style={{ textAlign: 'center' }}>
+                <div key={label} style={{ textAlign: 'left' }}>
                   <div style={{
                     fontFamily: "'Playfair Display', serif", fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 700,
                     background: 'linear-gradient(135deg, #c084fc, #22d3ee)',

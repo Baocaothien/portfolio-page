@@ -299,7 +299,7 @@ function Particles() {
 export default function Scene3D({ mouse }) {
   return (
     <Canvas
-      camera={{ position: [0, 0.1, 6.5], fov: 52 }}
+      camera={{ position: [-1.8, 0.1, 6.5], fov: 52 }}
       style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}
       dpr={[1, 1.5]}
       gl={{ antialias: true, toneMapping: 3, toneMappingExposure: 1.6 }}

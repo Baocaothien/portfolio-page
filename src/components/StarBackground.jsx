@@ -1,5 +1,24 @@
 import { useEffect, useRef } from 'react'
 
+/* Tạo tia sét phân nhánh đệ quy */
+function buildLightning(x1, y1, x2, y2, depth, segments = []) {
+  if (depth === 0) {
+    segments.push([x1, y1, x2, y2])
+    return segments
+  }
+  const mx = (x1 + x2) / 2 + (Math.random() - 0.5) * (Math.abs(x2 - x1) + Math.abs(y2 - y1)) * 0.35
+  const my = (y1 + y2) / 2 + (Math.random() - 0.5) * 20
+  buildLightning(x1, y1, mx, my, depth - 1, segments)
+  buildLightning(mx, my, x2, y2, depth - 1, segments)
+  // Nhánh phụ
+  if (depth === 2 && Math.random() < 0.5) {
+    const bx = mx + (Math.random() - 0.5) * 120
+    const by = my + Math.random() * 100
+    buildLightning(mx, my, bx, by, depth - 2, segments)
+  }
+  return segments
+}
+
 export default function StarBackground() {
   const canvasRef = useRef(null)
 
@@ -15,94 +34,114 @@ export default function StarBackground() {
     resize()
     window.addEventListener('resize', resize)
 
-    // Tạo sao
-    const COUNT = 180
-    const stars = Array.from({ length: COUNT }, () => ({
-      x:       Math.random() * canvas.width,
-      y:       Math.random() * canvas.height,
-      r:       Math.random() * 1.4 + 0.3,
-      alpha:   Math.random(),
-      speed:   Math.random() * 0.008 + 0.003,   // tốc độ nhấp nháy
-      phase:   Math.random() * Math.PI * 2,      // lệch pha
-      // 15% sao có màu tím/cyan nhẹ
-      color:   Math.random() < 0.08 ? '#a78bfa'
-             : Math.random() < 0.15 ? '#06b6d4'
-             : '#ffffff',
+    /* ── Raindrops ── */
+    const DROPS = 320
+    const drops = Array.from({ length: DROPS }, () => ({
+      x:      Math.random() * window.innerWidth,
+      y:      Math.random() * window.innerHeight,
+      len:    Math.random() * 18 + 8,
+      speed:  Math.random() * 9 + 7,
+      alpha:  Math.random() * 0.35 + 0.1,
+      width:  Math.random() * 0.8 + 0.3,
     }))
 
-    // Shooting stars
-    const shoots = []
-    const spawnShoot = () => {
-      shoots.push({
-        x:     Math.random() * canvas.width,
-        y:     Math.random() * canvas.height * 0.5,
-        len:   Math.random() * 100 + 60,
-        speed: Math.random() * 6 + 4,
-        alpha: 1,
-        angle: Math.PI / 4 + (Math.random() - 0.5) * 0.4,
-      })
+    /* ── Lightning state ── */
+    let lightning = null   // { segs, flash, alpha }
+    let flashAlpha = 0
+
+    const spawnLightning = () => {
+      const startX = Math.random() * canvas.width
+      const endX   = startX + (Math.random() - 0.5) * 200
+      const segs   = buildLightning(startX, 0, endX, canvas.height * (0.4 + Math.random() * 0.4), 4)
+      lightning = { segs, alpha: 1 }
+      flashAlpha = 0.18
     }
-    // Spawn định kỳ ngẫu nhiên
-    const shootInterval = setInterval(() => {
-      if (Math.random() < 0.6) spawnShoot()
-    }, 2200)
 
-    let t = 0
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      t += 1
+    // Sét xuất hiện ngẫu nhiên
+    let nextBolt = 2000 + Math.random() * 3000
+    let lastTime = performance.now()
 
-      // Vẽ sao thường
-      for (const s of stars) {
-        const a = (Math.sin(t * s.speed + s.phase) + 1) / 2
-        ctx.beginPath()
-        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2)
-        ctx.fillStyle = s.color
-        ctx.globalAlpha = a * 0.85 + 0.05
-        ctx.fill()
+    const draw = (now) => {
+      const dt = now - lastTime
+      lastTime = now
+      nextBolt -= dt
+      if (nextBolt <= 0) {
+        spawnLightning()
+        nextBolt = 1800 + Math.random() * 4000
       }
 
-      // Vẽ shooting stars
-      for (let i = shoots.length - 1; i >= 0; i--) {
-        const sh = shoots[i]
-        ctx.globalAlpha = sh.alpha
-        ctx.strokeStyle = '#ffffff'
-        ctx.lineWidth   = 1.2
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+      /* Flash toàn màn hình */
+      if (flashAlpha > 0) {
+        ctx.fillStyle = `rgba(160,180,255,${flashAlpha})`
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        flashAlpha = Math.max(0, flashAlpha - 0.025)
+      }
+
+      /* Vẽ mưa */
+      const angle = 0.22  // độ nghiêng (radian)
+      const dx = Math.sin(angle)
+      const dy = Math.cos(angle)
+
+      for (const d of drops) {
         ctx.beginPath()
-        ctx.moveTo(sh.x, sh.y)
-        ctx.lineTo(
-          sh.x - Math.cos(sh.angle) * sh.len,
-          sh.y - Math.sin(sh.angle) * sh.len,
-        )
+        ctx.moveTo(d.x, d.y)
+        ctx.lineTo(d.x - dx * d.len, d.y - dy * d.len)
+        ctx.strokeStyle = `rgba(180,210,255,${d.alpha})`
+        ctx.lineWidth   = d.width
         ctx.stroke()
 
-        // Gradient head
-        const grad = ctx.createLinearGradient(
-          sh.x, sh.y,
-          sh.x - Math.cos(sh.angle) * sh.len,
-          sh.y - Math.sin(sh.angle) * sh.len,
-        )
-        grad.addColorStop(0, `rgba(255,255,255,${sh.alpha})`)
-        grad.addColorStop(1, 'rgba(255,255,255,0)')
-        ctx.strokeStyle = grad
-        ctx.stroke()
+        d.x += dx * d.speed
+        d.y += dy * d.speed
 
-        sh.x += Math.cos(sh.angle) * sh.speed
-        sh.y += Math.sin(sh.angle) * sh.speed
-        sh.alpha -= 0.018
+        if (d.y > canvas.height + 20) {
+          d.y = -d.len
+          d.x = Math.random() * canvas.width
+        }
+        if (d.x > canvas.width + 20) {
+          d.x = -10
+          d.y = Math.random() * canvas.height
+        }
+      }
 
-        if (sh.alpha <= 0) shoots.splice(i, 1)
+      /* Vẽ sét */
+      if (lightning && lightning.alpha > 0) {
+        const { segs, alpha } = lightning
+        for (const [x1, y1, x2, y2] of segs) {
+          // Lớp glow ngoài
+          ctx.beginPath()
+          ctx.moveTo(x1, y1)
+          ctx.lineTo(x2, y2)
+          ctx.strokeStyle = `rgba(147,100,255,${alpha * 0.3})`
+          ctx.lineWidth   = 6
+          ctx.shadowColor = '#9364ff'
+          ctx.shadowBlur  = 24
+          ctx.stroke()
+
+          // Lớp lõi trắng
+          ctx.beginPath()
+          ctx.moveTo(x1, y1)
+          ctx.lineTo(x2, y2)
+          ctx.strokeStyle = `rgba(220,210,255,${alpha})`
+          ctx.lineWidth   = 1.5
+          ctx.shadowColor = '#fff'
+          ctx.shadowBlur  = 8
+          ctx.stroke()
+        }
+        ctx.shadowBlur = 0
+        lightning.alpha -= 0.045
+        if (lightning.alpha <= 0) lightning = null
       }
 
       ctx.globalAlpha = 1
       animId = requestAnimationFrame(draw)
     }
 
-    draw()
+    animId = requestAnimationFrame(draw)
 
     return () => {
       cancelAnimationFrame(animId)
-      clearInterval(shootInterval)
       window.removeEventListener('resize', resize)
     }
   }, [])
@@ -110,12 +149,7 @@ export default function StarBackground() {
   return (
     <canvas
       ref={canvasRef}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 0,
-        pointerEvents: 'none',
-      }}
+      style={{ position: 'fixed', inset: 0, zIndex: -1, pointerEvents: 'none' }}
     />
   )
 }
